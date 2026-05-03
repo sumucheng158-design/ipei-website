@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -12,28 +13,34 @@ import SectionHeader from "@/components/SectionHeader";
 import ProgramCard from "@/components/ProgramCard";
 import EventCard from "@/components/EventCard";
 import ArticleCard from "@/components/ArticleCard";
+import Icon, { type IconName } from "@/components/Icon";
+
+/* ── Metadata (fix #1/#2) ── */
+export const metadata: Metadata = {
+  title: "攜手孩子，守護地球",
+  description:
+    "I.P.E.I. 國際親子生態倡議組織 — 推動親子淨灘、環境教育與永續生活。加入全球 12,000 個家庭志工，一起守護地球。",
+};
 
 export default function HomePage() {
   return (
     <>
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-forest-950 via-forest-900 to-ocean-900">
-        {/* Background image */}
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=1600&q=80"
             alt="Beach cleanup hero"
             fill
             priority
+            sizes="100vw"
             className="object-cover opacity-20"
           />
         </div>
 
-        {/* Decorative circles */}
         <div className="absolute top-1/4 right-10 w-72 h-72 rounded-full bg-forest-400/10 blur-3xl animate-float" />
         <div className="absolute bottom-1/4 left-10 w-96 h-96 rounded-full bg-ocean-400/10 blur-3xl animate-float animate-delay-300" />
 
-        {/* Grid overlay */}
         <div
           className="absolute inset-0 opacity-5"
           style={{
@@ -82,7 +89,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Wave divider */}
         <div className="absolute bottom-0 left-0 right-0">
           <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 80 C360 20 1080 60 1440 20 L1440 80 Z" fill="white" />
@@ -91,31 +97,39 @@ export default function HomePage() {
       </section>
 
       {/* ── Stats ──────────────────────────────────────────────── */}
+      {/* Fix #9: color by semantic category, not index parity */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((stat, i) => (
-              <div
-                key={stat.label}
-                className={`text-center p-6 rounded-2xl bg-gradient-to-br ${
-                  i % 2 === 0
-                    ? "from-forest-50 to-forest-100/50"
-                    : "from-ocean-50 to-ocean-100/50"
-                }`}
-              >
-                <div className="text-3xl mb-2">{stat.icon}</div>
+            {stats.map((stat) => {
+              const isOcean = stat.iconKey === "waves" || stat.iconKey === "recycle";
+              return (
                 <div
-                  className={`font-display text-3xl md:text-4xl font-bold mb-1 ${
-                    i % 2 === 0 ? "text-forest-700" : "text-ocean-700"
+                  key={stat.label}
+                  className={`text-center p-6 rounded-2xl bg-gradient-to-br ${
+                    isOcean
+                      ? "from-ocean-50 to-ocean-100/50"
+                      : "from-forest-50 to-forest-100/50"
                   }`}
                 >
-                  {stat.value}
+                  <div
+                    className={`flex justify-center mb-3 ${
+                      isOcean ? "text-ocean-500" : "text-forest-500"
+                    }`}
+                  >
+                    <Icon name={stat.iconKey as IconName} className="w-8 h-8" />
+                  </div>
+                  <div
+                    className={`font-display text-3xl md:text-4xl font-bold mb-1 ${
+                      isOcean ? "text-ocean-700" : "text-forest-700"
+                    }`}
+                  >
+                    {stat.value}
+                  </div>
+                  <div className="text-gray-600 text-sm leading-snug">{stat.label}</div>
                 </div>
-                <div className="text-gray-600 text-sm leading-snug">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -133,13 +147,34 @@ export default function HomePage() {
               />
               <div className="mt-8 space-y-4">
                 {[
-                  { icon: "🌊", title: "海洋守護（Ocean Protection）", desc: "透過親子淨灘，直接改善海洋環境" },
-                  { icon: "📚", title: "知識傳承（Education First）", desc: "系統化環境教育，讓永續觀念從小扎根" },
-                  { icon: "🤝", title: "全球連結（Global Network）", desc: "跨國家庭志工網絡，共同發聲" },
+                  {
+                    iconKey: "waves" as IconName,
+                    color: "ocean",
+                    title: "海洋守護（Ocean Protection）",
+                    desc: "透過親子淨灘，直接改善海洋環境",
+                  },
+                  {
+                    iconKey: "book" as IconName,
+                    color: "forest",
+                    title: "知識傳承（Education First）",
+                    desc: "系統化環境教育，讓永續觀念從小扎根",
+                  },
+                  {
+                    iconKey: "network" as IconName,
+                    color: "ocean",
+                    title: "全球連結（Global Network）",
+                    desc: "跨國家庭志工網絡，共同發聲",
+                  },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-forest-100 flex items-center justify-center text-xl flex-shrink-0">
-                      {item.icon}
+                    <div
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                        item.color === "ocean"
+                          ? "bg-ocean-100 text-ocean-600"
+                          : "bg-forest-100 text-forest-600"
+                      }`}
+                    >
+                      <Icon name={item.iconKey} className="w-5 h-5" />
                     </div>
                     <div>
                       <div className="font-body font-semibold text-gray-800 text-sm">
@@ -163,11 +198,11 @@ export default function HomePage() {
                   src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=700&q=80"
                   alt="Family environmental action"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-forest-900/40 to-transparent" />
               </div>
-              {/* Floating badge */}
               <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 border border-gray-100">
                 <div className="font-display text-2xl font-bold text-forest-600">2018</div>
                 <div className="text-xs text-gray-500">成立至今</div>
@@ -226,6 +261,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Testimonials ───────────────────────────────────────── */}
+      {/* Fix #11: SVG quote mark */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
@@ -237,14 +273,22 @@ export default function HomePage() {
             {testimonials.map((t) => (
               <div
                 key={t.author}
-                className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:border-forest-200 transition-colors duration-200"
+                className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:border-forest-200 transition-colors duration-200 flex flex-col"
               >
-                <div className="text-3xl mb-4 text-forest-300">"</div>
-                <p className="text-gray-700 leading-relaxed text-sm mb-6">
+                {/* SVG quote icon */}
+                <svg
+                  className="w-8 h-8 text-forest-200 mb-4 flex-shrink-0"
+                  viewBox="0 0 32 32"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M10 8C6.686 8 4 10.686 4 14v10h10V14H7.5C7.5 11.515 8.932 10 11 10l-1-2zm14 0c-3.314 0-6 2.686-6 6v10h10V14h-6.5C21.5 11.515 22.932 10 25 10l-1-2z" />
+                </svg>
+                <p className="text-gray-700 leading-relaxed text-sm mb-6 flex-1">
                   {t.quote}
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-forest-400 to-ocean-400 flex items-center justify-center text-white text-xs font-semibold">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-forest-400 to-ocean-400 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
                     {t.author.charAt(0)}
                   </div>
                   <div>
@@ -286,9 +330,11 @@ export default function HomePage() {
 
       {/* ── CTA Banner ─────────────────────────────────────────── */}
       <section className="py-20 bg-gradient-to-br from-forest-700 via-forest-800 to-ocean-900 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10"
+        <div
+          className="absolute inset-0 opacity-10"
           style={{
-            backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 50%, white 1px, transparent 1px)",
+            backgroundImage:
+              "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 50%, white 1px, transparent 1px)",
             backgroundSize: "40px 40px",
           }}
         />
@@ -302,7 +348,10 @@ export default function HomePage() {
             加入全球 {siteConfig.volunteers.toLocaleString()} 個親子志工家庭，一起成為地球改變的力量。
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link href="/get-involved" className="bg-white text-forest-700 hover:bg-forest-50 font-body font-semibold px-8 py-4 rounded-full transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5">
+            <Link
+              href="/get-involved"
+              className="bg-white text-forest-700 hover:bg-forest-50 font-body font-semibold px-8 py-4 rounded-full transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5"
+            >
               成為志工（Volunteer）
             </Link>
             <Link

@@ -21,10 +21,10 @@ export const navLinks = [
 ];
 
 export const stats = [
-  { value: "24", label: "合作國家（Countries）", icon: "🌍" },
-  { value: "12,000+", label: "志工夥伴（Volunteers）", icon: "🤝" },
-  { value: "380+", label: "舉辦活動（Events）", icon: "📅" },
-  { value: "58 噸", label: "清除垃圾（Waste Removed）", icon: "♻️" },
+  { value: "24", label: "合作國家（Countries）", iconKey: "globe" },
+  { value: "12,000+", label: "志工夥伴（Volunteers）", iconKey: "handshake" },
+  { value: "380+", label: "舉辦活動（Events）", iconKey: "calendar" },
+  { value: "58 噸", label: "清除垃圾（Waste Removed）", iconKey: "recycle" },
 ];
 
 export const programs = [
@@ -34,7 +34,7 @@ export const programs = [
     subtitle: "Beach Cleanup",
     description:
       "結合親子力量，定期舉辦海灘淨化活動。透過實際行動讓孩子理解海洋保護的重要性，培養對自然環境的責任感。",
-    icon: "🏖️",
+    iconKey: "waves",
     color: "ocean",
     image: "https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=600&q=80",
     href: "/programs/beach-cleanup",
@@ -46,7 +46,7 @@ export const programs = [
     subtitle: "Environmental Education",
     description:
       "提供系統化的環境教育課程，適合不同年齡層的親子學習。從課堂到戶外，讓永續觀念從小扎根。",
-    icon: "🌱",
+    iconKey: "sprout",
     color: "forest",
     image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&q=80",
     href: "/programs",
@@ -58,7 +58,7 @@ export const programs = [
     subtitle: "Global Programs",
     description:
       "連結全球24個國家的家庭志工網絡，共同推動跨國環保行動，分享在地知識與全球視野。",
-    icon: "🌐",
+    iconKey: "network",
     color: "ocean",
     image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80",
     href: "/programs",
@@ -70,7 +70,7 @@ export const programs = [
     subtitle: "Sustainable Living",
     description:
       "從日常生活出發，推廣零廢棄、低碳生活方式。提供實用指南讓家庭輕鬆實踐環保生活。",
-    icon: "🏡",
+    iconKey: "home",
     color: "forest",
     image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&q=80",
     href: "/programs",
@@ -78,14 +78,16 @@ export const programs = [
   },
 ];
 
+/* Dates updated to 2026 */
 export const upcomingEvents = [
   {
     id: 1,
-    title: "2025 夏季國際親子淨灘日",
+    title: "2026 夏季國際親子淨灘日",
     subtitle: "International Family Beach Cleanup Day",
-    date: "2025-08-16",
+    date: "2026-08-15",
     location: "台灣・新北市淡水海灘",
-    country: "🇹🇼",
+    countryCode: "TW",
+    countryFlag: "🇹🇼",
     spots: 120,
     spotsLeft: 38,
     category: "beach-cleanup",
@@ -95,9 +97,10 @@ export const upcomingEvents = [
     id: 2,
     title: "親子生態探索工作坊",
     subtitle: "Family Eco-Exploration Workshop",
-    date: "2025-09-06",
+    date: "2026-09-05",
     location: "日本・東京都立公園",
-    country: "🇯🇵",
+    countryCode: "JP",
+    countryFlag: "🇯🇵",
     spots: 60,
     spotsLeft: 12,
     category: "eco-education",
@@ -107,9 +110,10 @@ export const upcomingEvents = [
     id: 3,
     title: "全球永續家庭線上峰會",
     subtitle: "Global Sustainable Families Online Summit",
-    date: "2025-10-12",
+    date: "2026-10-10",
     location: "線上活動（Online）",
-    country: "🌍",
+    countryCode: "ONLINE",
+    countryFlag: "🌍",
     spots: 500,
     spotsLeft: 203,
     category: "global",
@@ -123,7 +127,7 @@ export const articles = [
     title: "如何帶孩子參與第一次淨灘（Beach Cleanup）活動",
     category: "親子教育",
     readTime: "5 分鐘",
-    date: "2025-06-15",
+    date: "2026-04-15",
     excerpt:
       "淨灘不只是撿垃圾，更是一堂親子共學的生態課。本文提供完整準備指南，讓第一次參與的家庭也能輕鬆上手。",
     image: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=400&q=80",
@@ -134,7 +138,7 @@ export const articles = [
     title: "海洋微塑膠（Microplastics）對孩子健康的影響",
     category: "環境科學",
     readTime: "8 分鐘",
-    date: "2025-05-28",
+    date: "2026-03-28",
     excerpt:
       "微塑膠已進入食物鏈，了解其來源與影響，幫助家長做出更明智的生活選擇，保護孩子的未來。",
     image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&q=80",
@@ -145,7 +149,7 @@ export const articles = [
     title: "10 個讓孩子愛上環保的日常習慣",
     category: "永續生活",
     readTime: "6 分鐘",
-    date: "2025-05-10",
+    date: "2026-03-10",
     excerpt:
       "從分類回收到隨手關燈，用遊戲化方式讓永續生活（Sustainable Living）成為全家人的日常。",
     image: "https://images.unsplash.com/photo-1470058869958-2a77ade41c02?w=400&q=80",
@@ -153,12 +157,12 @@ export const articles = [
   },
   {
     id: 4,
-    title: "I.P.E.I. 2024 年度影響力報告",
+    title: "I.P.E.I. 2025 年度影響力報告",
     category: "組織報告",
     readTime: "12 分鐘",
-    date: "2025-04-01",
+    date: "2026-02-01",
     excerpt:
-      "回顧 2024 年度，我們在全球 24 個國家的行動成果，以及對海洋環境保護（Ocean Conservation）的具體貢獻。",
+      "回顧 2025 年度，我們在全球 24 個國家的行動成果，以及對海洋環境保護（Ocean Conservation）的具體貢獻。",
     image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&q=80",
     tag: "年度報告",
   },
@@ -172,7 +176,7 @@ export const downloadResources = [
     format: "PDF",
     size: "2.4 MB",
     languages: ["繁體中文", "English", "日本語"],
-    icon: "📖",
+    iconKey: "book",
   },
   {
     id: 2,
@@ -181,7 +185,7 @@ export const downloadResources = [
     format: "ZIP",
     size: "18.6 MB",
     languages: ["繁體中文", "English"],
-    icon: "🎓",
+    iconKey: "graduationCap",
   },
   {
     id: 3,
@@ -190,7 +194,7 @@ export const downloadResources = [
     format: "PDF",
     size: "1.1 MB",
     languages: ["繁體中文", "English", "한국어"],
-    icon: "♻️",
+    iconKey: "recycle",
   },
   {
     id: 4,
@@ -199,7 +203,7 @@ export const downloadResources = [
     format: "PNG",
     size: "3.8 MB",
     languages: ["多語言版本"],
-    icon: "🖼️",
+    iconKey: "image",
   },
 ];
 
@@ -269,9 +273,10 @@ export const testimonials = [
   },
 ];
 
+/* Social links — icon rendered as SVG in Footer component */
 export const socialLinks = [
-  { platform: "Facebook", icon: "f", href: "#", label: "Facebook" },
-  { platform: "Instagram", icon: "📷", href: "#", label: "Instagram" },
-  { platform: "YouTube", icon: "▶", href: "#", label: "YouTube" },
-  { platform: "LinkedIn", icon: "in", href: "#", label: "LinkedIn" },
+  { platform: "Facebook", iconKey: "facebook", href: "#", label: "Facebook" },
+  { platform: "Instagram", iconKey: "instagram", href: "#", label: "Instagram" },
+  { platform: "YouTube", iconKey: "youtube", href: "#", label: "YouTube" },
+  { platform: "LinkedIn", iconKey: "linkedin", href: "#", label: "LinkedIn" },
 ];

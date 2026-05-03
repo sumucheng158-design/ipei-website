@@ -1,54 +1,51 @@
-import type { Metadata } from "next";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { upcomingEvents, siteConfig } from "@/data/mockData";
 import SectionHeader from "@/components/SectionHeader";
 import EventCard from "@/components/EventCard";
-
-export const metadata: Metadata = {
-  title: "參與我們",
-  description:
-    "加入 I.P.E.I.！成為志工、報名活動、捐款支持，與全球家庭共同守護地球生態。",
-};
+import Icon, { type IconName } from "@/components/Icon";
 
 const volunteerRoles = [
   {
-    icon: "🏖️",
+    iconKey: "beach" as IconName,
     title: "淨灘志工",
     subtitle: "Beach Cleanup Volunteer",
     commitment: "每月 1 次",
     desc: "帶領親子家庭進行淨灘活動，負責現場引導、數據記錄與垃圾分類教學。",
   },
   {
-    icon: "📚",
+    iconKey: "book" as IconName,
     title: "環教講師",
     subtitle: "Eco Education Facilitator",
     commitment: "彈性排班",
     desc: "前往學校或社區進行環境教育課程，為孩子帶來有趣的生態知識。需受過培訓。",
   },
   {
-    icon: "📸",
+    iconKey: "camera" as IconName,
     title: "記錄志工",
     subtitle: "Documentation Volunteer",
     commitment: "活動日配合",
     desc: "協助記錄活動照片與影片，撰寫活動紀錄，讓每次行動的影響力被看見。",
   },
   {
-    icon: "🌐",
+    iconKey: "network" as IconName,
     title: "線上社群志工",
     subtitle: "Online Community Volunteer",
     commitment: "每週 2-3 小時",
     desc: "協助管理社群媒體內容、翻譯資源教材、回覆社群問題，遠端即可進行。",
   },
   {
-    icon: "🤝",
+    iconKey: "users" as IconName,
     title: "企業聯繫志工",
     subtitle: "Corporate Liaison",
     commitment: "視需求而定",
     desc: "協助聯繫在地企業、學校與社區組織，拓展 I.P.E.I. 的合作網絡。",
   },
   {
-    icon: "💻",
+    iconKey: "laptop" as IconName,
     title: "技術支援志工",
     subtitle: "Tech Support Volunteer",
     commitment: "視需求而定",
@@ -56,7 +53,46 @@ const volunteerRoles = [
   },
 ];
 
+const donateAmounts = ["NT$200", "NT$500", "NT$1,000", "NT$2,000", "NT$5,000", "自訂金額"];
+
 export default function GetInvolvedPage() {
+  /* Fix #16: dynamic donate amount state */
+  const [selectedAmount, setSelectedAmount] = useState("NT$500");
+  const [customAmount, setCustomAmount] = useState("");
+
+  /* Fix #15: basic volunteer form state */
+  const [volunteerForm, setVolunteerForm] = useState({
+    name: "", city: "", email: "", role: "", bio: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  function validateVolunteer() {
+    const e: Record<string, string> = {};
+    if (!volunteerForm.name.trim()) e.name = "請填寫姓名";
+    if (!volunteerForm.email.trim()) e.email = "請填寫電子郵件";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(volunteerForm.email)) e.email = "電子郵件格式不正確";
+    if (!volunteerForm.role) e.role = "請選擇志工角色";
+    return e;
+  }
+
+  function handleVolunteerSubmit() {
+    const e = validateVolunteer();
+    if (Object.keys(e).length > 0) {
+      setErrors(e);
+      return;
+    }
+    setErrors({});
+    setSubmitted(true);
+  }
+
+  const displayAmount =
+    selectedAmount === "自訂金額"
+      ? customAmount
+        ? `NT$${customAmount}`
+        : "自訂金額"
+      : selectedAmount;
+
   return (
     <>
       {/* Hero */}
@@ -67,6 +103,7 @@ export default function GetInvolvedPage() {
             alt="Get Involved"
             fill
             priority
+            sizes="100vw"
             className="object-cover opacity-15"
           />
         </div>
@@ -113,7 +150,7 @@ export default function GetInvolvedPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: "🤝",
+                iconKey: "handshake" as IconName,
                 title: "成為志工",
                 subtitle: "Become a Volunteer",
                 desc: "加入我們的全球志工網絡，貢獻你的時間與技能，直接參與活動規劃、執行與推廣。",
@@ -122,7 +159,7 @@ export default function GetInvolvedPage() {
                 href: "#volunteer",
               },
               {
-                icon: "📅",
+                iconKey: "calendar" as IconName,
                 title: "報名活動",
                 subtitle: "Join Our Events",
                 desc: "帶著孩子參加親子淨灘、生態工作坊、線上峰會等豐富活動，共同創造美好回憶與環境改變。",
@@ -131,7 +168,7 @@ export default function GetInvolvedPage() {
                 href: "#events",
               },
               {
-                icon: "💚",
+                iconKey: "heart" as IconName,
                 title: "捐款支持",
                 subtitle: "Make a Donation",
                 desc: "你的捐款將直接支援活動執行、教材開發與在地志工培訓，讓更多家庭能免費參與我們的計畫。",
@@ -150,10 +187,18 @@ export default function GetInvolvedPage() {
                     : "border-sand-200 bg-sand-50"
                 }`}
               >
-                <div className="text-5xl mb-4">{way.icon}</div>
-                <h3 className="font-display text-2xl text-gray-900 mb-1">
-                  {way.title}
-                </h3>
+                <div
+                  className={`w-14 h-14 rounded-2xl mx-auto flex items-center justify-center mb-4 ${
+                    way.color === "forest"
+                      ? "bg-forest-100 text-forest-600"
+                      : way.color === "ocean"
+                      ? "bg-ocean-100 text-ocean-600"
+                      : "bg-sand-100 text-sand-600"
+                  }`}
+                >
+                  <Icon name={way.iconKey} className="w-7 h-7" />
+                </div>
+                <h3 className="font-display text-2xl text-gray-900 mb-1">{way.title}</h3>
                 <p
                   className={`text-xs font-mono tracking-widest uppercase mb-4 ${
                     way.color === "forest"
@@ -165,9 +210,7 @@ export default function GetInvolvedPage() {
                 >
                   {way.subtitle}
                 </p>
-                <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                  {way.desc}
-                </p>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">{way.desc}</p>
                 <a
                   href={way.href}
                   className={`inline-flex items-center justify-center font-semibold text-sm px-6 py-3 rounded-full transition-all duration-200 ${
@@ -198,7 +241,9 @@ export default function GetInvolvedPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
             {volunteerRoles.map((role) => (
               <div key={role.title} className="card p-6">
-                <div className="text-3xl mb-3">{role.icon}</div>
+                <div className="w-10 h-10 rounded-xl bg-forest-100 text-forest-600 flex items-center justify-center mb-3">
+                  <Icon name={role.iconKey} className="w-5 h-5" />
+                </div>
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <div>
                     <h3 className="font-body font-semibold text-gray-900">{role.title}</h3>
@@ -213,57 +258,91 @@ export default function GetInvolvedPage() {
             ))}
           </div>
 
-          {/* Volunteer form mock */}
+          {/* Volunteer form — Fix #15: validation + submit feedback */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 max-w-2xl mx-auto">
             <h3 className="font-display text-2xl text-center mb-6">申請成為志工</h3>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-xs font-semibold text-gray-600 mb-1.5 block">姓名</label>
-                  <input
-                    type="text"
-                    placeholder="你的名字"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-forest-400 transition-colors"
-                  />
+            {submitted ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 rounded-full bg-forest-100 text-forest-600 flex items-center justify-center mx-auto mb-4">
+                  <Icon name="check" className="w-8 h-8" />
+                </div>
+                <h4 className="font-display text-xl text-gray-900 mb-2">申請已送出！</h4>
+                <p className="text-sm text-gray-500">我們將在 3 個工作日內透過電子郵件與您聯繫。</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-xs font-semibold text-gray-600 mb-1.5 block">姓名 *</label>
+                    <input
+                      type="text"
+                      placeholder="你的名字"
+                      value={volunteerForm.name}
+                      onChange={(e) => setVolunteerForm({ ...volunteerForm, name: e.target.value })}
+                      className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none focus:border-forest-400 transition-colors ${
+                        errors.name ? "border-red-400" : "border-gray-200"
+                      }`}
+                    />
+                    {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name}</p>}
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-gray-600 mb-1.5 block">所在城市</label>
+                    <input
+                      type="text"
+                      placeholder="城市名稱"
+                      value={volunteerForm.city}
+                      onChange={(e) => setVolunteerForm({ ...volunteerForm, city: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-forest-400 transition-colors"
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-gray-600 mb-1.5 block">所在城市</label>
+                  <label className="text-xs font-semibold text-gray-600 mb-1.5 block">電子郵件 *</label>
                   <input
-                    type="text"
-                    placeholder="城市名稱"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-forest-400 transition-colors"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={volunteerForm.email}
+                    onChange={(e) => setVolunteerForm({ ...volunteerForm, email: e.target.value })}
+                    className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none focus:border-forest-400 transition-colors ${
+                      errors.email ? "border-red-400" : "border-gray-200"
+                    }`}
+                  />
+                  {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 mb-1.5 block">感興趣的志工角色 *</label>
+                  <select
+                    value={volunteerForm.role}
+                    onChange={(e) => setVolunteerForm({ ...volunteerForm, role: e.target.value })}
+                    className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none focus:border-forest-400 transition-colors bg-white ${
+                      errors.role ? "border-red-400" : "border-gray-200"
+                    }`}
+                  >
+                    <option value="">請選擇角色</option>
+                    {volunteerRoles.map((r) => (
+                      <option key={r.title}>{r.title}</option>
+                    ))}
+                  </select>
+                  {errors.role && <p className="text-xs text-red-500 mt-1">{errors.role}</p>}
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 mb-1.5 block">自我介紹</label>
+                  <textarea
+                    rows={3}
+                    placeholder="簡短介紹自己，以及為何想加入 I.P.E.I...."
+                    value={volunteerForm.bio}
+                    onChange={(e) => setVolunteerForm({ ...volunteerForm, bio: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-forest-400 transition-colors resize-none"
                   />
                 </div>
+                <button
+                  onClick={handleVolunteerSubmit}
+                  className="btn-primary w-full justify-center py-3.5"
+                >
+                  送出申請
+                </button>
               </div>
-              <div>
-                <label className="text-xs font-semibold text-gray-600 mb-1.5 block">電子郵件</label>
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-forest-400 transition-colors"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-gray-600 mb-1.5 block">感興趣的志工角色</label>
-                <select className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-forest-400 transition-colors bg-white">
-                  <option>請選擇角色</option>
-                  {volunteerRoles.map((r) => (
-                    <option key={r.title}>{r.title}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-gray-600 mb-1.5 block">自我介紹</label>
-                <textarea
-                  rows={3}
-                  placeholder="簡短介紹自己，以及為何想加入 I.P.E.I...."
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-forest-400 transition-colors resize-none"
-                />
-              </div>
-              <button className="btn-primary w-full justify-center py-3.5">
-                送出申請
-              </button>
-            </div>
+            )}
           </div>
         </div>
       </section>
@@ -308,39 +387,59 @@ export default function GetInvolvedPage() {
                   "推動新據點設立與擴展",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-sm text-gray-700">
-                    <span className="w-5 h-5 rounded-full bg-forest-100 text-forest-600 flex items-center justify-center text-xs flex-shrink-0">
-                      ✓
+                    <span className="w-5 h-5 rounded-full bg-forest-100 text-forest-600 flex items-center justify-center flex-shrink-0">
+                      <Icon name="check" className="w-3 h-3" />
                     </span>
                     {item}
                   </li>
                 ))}
               </ul>
-              <div className="p-5 bg-forest-50 rounded-2xl border border-forest-100">
+              {/* Fix: lightbulb SVG instead of 💡 emoji */}
+              <div className="p-5 bg-forest-50 rounded-2xl border border-forest-100 flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-forest-100 text-forest-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <Icon name="lightbulb" className="w-4 h-4" />
+                </div>
                 <p className="text-sm text-forest-800">
-                  💡 <strong>你知道嗎？</strong> 台幣 500 元的捐款，可以提供一個家庭參與完整的親子淨灘活動，
+                  <strong>你知道嗎？</strong> 台幣 500 元的捐款，可以提供一個家庭參與完整的親子淨灘活動，
                   包含所有裝備與環教材料。
                 </p>
               </div>
             </div>
 
+            {/* Fix #16: dynamic donate button */}
             <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100">
               <h3 className="font-display text-2xl text-center mb-6">選擇捐款金額</h3>
               <div className="grid grid-cols-3 gap-3 mb-4">
-                {["NT$200", "NT$500", "NT$1,000", "NT$2,000", "NT$5,000", "自訂金額"].map(
-                  (amount) => (
-                    <button
-                      key={amount}
-                      className={`py-3 rounded-xl border text-sm font-semibold transition-all duration-200 ${
-                        amount === "NT$500"
-                          ? "bg-forest-600 border-forest-600 text-white shadow-sm"
-                          : "border-gray-200 text-gray-700 hover:border-forest-400 hover:text-forest-600 bg-white"
-                      }`}
-                    >
-                      {amount}
-                    </button>
-                  )
-                )}
+                {donateAmounts.map((amount) => (
+                  <button
+                    key={amount}
+                    onClick={() => setSelectedAmount(amount)}
+                    className={`py-3 rounded-xl border text-sm font-semibold transition-all duration-200 ${
+                      selectedAmount === amount
+                        ? "bg-forest-600 border-forest-600 text-white shadow-sm"
+                        : "border-gray-200 text-gray-700 hover:border-forest-400 hover:text-forest-600 bg-white"
+                    }`}
+                  >
+                    {amount}
+                  </button>
+                ))}
               </div>
+
+              {/* Custom amount input */}
+              {selectedAmount === "自訂金額" && (
+                <div className="mb-4">
+                  <label className="text-xs font-semibold text-gray-600 mb-1.5 block">輸入金額（NT$）</label>
+                  <input
+                    type="number"
+                    placeholder="請輸入金額"
+                    value={customAmount}
+                    onChange={(e) => setCustomAmount(e.target.value)}
+                    min="1"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-forest-400 bg-white transition-colors"
+                  />
+                </div>
+              )}
+
               <div className="space-y-4">
                 <div>
                   <label className="text-xs font-semibold text-gray-600 mb-1.5 block">姓名</label>
@@ -364,10 +463,13 @@ export default function GetInvolvedPage() {
                     設為每月定期捐款（Monthly Giving）
                   </label>
                 </div>
-                <button className="btn-primary w-full justify-center py-3.5 text-base">
-                  💚 立即捐款 NT$500
+                {/* Fix #16: button shows actual selected amount */}
+                <button className="btn-primary w-full justify-center py-3.5 text-base gap-2">
+                  <Icon name="heart" className="w-4 h-4" />
+                  立即捐款 {displayAmount}
                 </button>
-                <p className="text-xs text-gray-400 text-center">
+                <p className="text-xs text-gray-400 text-center flex items-center justify-center gap-1">
+                  <Icon name="shield" className="w-3.5 h-3.5" />
                   安全加密支付 · 捐款憑證將寄至您的信箱
                 </p>
               </div>

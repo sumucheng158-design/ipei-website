@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
+import Icon from "@/components/Icon";
 
 interface EventCardProps {
   title: string;
   subtitle: string;
   date: string;
   location: string;
-  country: string;
+  countryFlag: string;
   spots: number;
   spotsLeft: number;
   image: string;
@@ -17,15 +18,17 @@ export default function EventCard({
   subtitle,
   date,
   location,
-  country,
+  countryFlag,
   spots,
   spotsLeft,
   image,
 }: EventCardProps) {
   const percentage = Math.round(((spots - spotsLeft) / spots) * 100);
+
+  /* Fix #18: consistent date formatting */
   const dateObj = new Date(date);
-  const month = dateObj.toLocaleString("zh-TW", { month: "short" });
-  const day = dateObj.getDate();
+  const month = dateObj.toLocaleDateString("zh-TW", { month: "short", timeZone: "UTC" });
+  const day = dateObj.getUTCDate();
 
   return (
     <div className="card group flex flex-col sm:flex-row overflow-hidden">
@@ -34,6 +37,7 @@ export default function EventCard({
           src={image}
           alt={title}
           fill
+          sizes="(max-width: 640px) 100vw, 144px"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/30 to-transparent" />
@@ -48,18 +52,18 @@ export default function EventCard({
       </div>
 
       <div className="p-5 flex flex-col flex-1">
-        <div className="flex items-start justify-between gap-2 mb-1">
-          <div>
-            <h3 className="font-display text-base font-semibold text-gray-900 leading-snug">
-              {title}
-            </h3>
-            <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p>
-          </div>
-          <span className="text-xl flex-shrink-0">{country}</span>
+        <div className="mb-1">
+          <h3 className="font-display text-base font-semibold text-gray-900 leading-snug">
+            {title}
+          </h3>
+          <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p>
         </div>
 
+        {/* Fix #10: integrate flag into location row instead of floating alone */}
         <p className="text-sm text-gray-500 flex items-center gap-1.5 mt-2 mb-3">
-          <span>📍</span> {location}
+          <Icon name="pin" className="w-4 h-4 text-gray-400 flex-shrink-0" />
+          <span className="text-base leading-none">{countryFlag}</span>
+          {location}
         </p>
 
         <div className="mt-auto">

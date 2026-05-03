@@ -48,10 +48,11 @@ const config: Config = {
           900: "#7c4b13",
         },
       },
+      /* Use CSS variables injected by next/font */
       fontFamily: {
-        display: ["'Playfair Display'", "Georgia", "serif"],
-        body:    ["'DM Sans'", "system-ui", "sans-serif"],
-        mono:    ["'DM Mono'", "monospace"],
+        display: ["var(--font-playfair)", "Georgia", "serif"],
+        body:    ["var(--font-dm-sans)", "system-ui", "sans-serif"],
+        mono:    ["var(--font-dm-mono)", "monospace"],
       },
       animation: {
         "fade-up":    "fadeUp 0.6s ease-out forwards",
@@ -80,6 +81,11 @@ const config: Config = {
         wave: {
           "0%, 100%": { transform: "translateX(0)" },
           "50%":      { transform: "translateX(-3%)" },
+        },
+        slideProgress: {
+          "0%":   { transform: "translateX(-100%)" },
+          "50%":  { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(-100%)" },
         },
       },
     },

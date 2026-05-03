@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { siteConfig, stats, teamMembers } from "@/data/mockData";
 import SectionHeader from "@/components/SectionHeader";
+import Icon, { type IconName } from "@/components/Icon";
 
 export const metadata: Metadata = {
   title: "關於我們",
@@ -20,6 +21,7 @@ export default function AboutPage() {
             src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1400&q=80"
             alt="About IPEI"
             fill
+            sizes="100vw"
             className="object-cover opacity-15"
           />
         </div>
@@ -75,6 +77,7 @@ export default function AboutPage() {
                 src="https://images.unsplash.com/photo-1578496479932-143c8f2e2264?w=700&q=80"
                 alt="IPEI founders story"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
               />
             </div>
@@ -93,7 +96,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                icon: "🎯",
+                iconKey: "target" as IconName,
                 en: "Mission",
                 zh: "使命",
                 color: "forest",
@@ -101,7 +104,7 @@ export default function AboutPage() {
                   "透過親子共同參與，推動海洋保護、環境教育與永續生活，建立跨越國界的家庭環保行動網絡，讓每個世代都能享受美麗的地球。",
               },
               {
-                icon: "🌟",
+                iconKey: "star" as IconName,
                 en: "Vision",
                 zh: "願景",
                 color: "ocean",
@@ -109,7 +112,7 @@ export default function AboutPage() {
                   "我們期許在 2030 年前，將親子環保（Family Eco-Action）理念融入全球 100 個國家的家庭文化，讓「守護地球」成為跨代際的共同語言。",
               },
               {
-                icon: "💎",
+                iconKey: "diamond" as IconName,
                 en: "Values",
                 zh: "價值觀",
                 color: "sand",
@@ -127,7 +130,17 @@ export default function AboutPage() {
                     : "bg-sand-50 border-sand-200"
                 }`}
               >
-                <div className="text-4xl mb-4">{item.icon}</div>
+                <div
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
+                    item.color === "forest"
+                      ? "bg-forest-100 text-forest-600"
+                      : item.color === "ocean"
+                      ? "bg-ocean-100 text-ocean-600"
+                      : "bg-sand-100 text-sand-600"
+                  }`}
+                >
+                  <Icon name={item.iconKey} className="w-6 h-6" />
+                </div>
                 <div className="flex items-baseline gap-2 mb-3">
                   <h3 className="font-display text-2xl text-gray-900">{item.zh}</h3>
                   <span
@@ -160,7 +173,13 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, i) => (
               <div key={stat.label} className="text-center">
-                <div className="text-4xl mb-3">{stat.icon}</div>
+                <div
+                  className={`flex justify-center mb-3 ${
+                    i % 2 === 0 ? "text-forest-500" : "text-ocean-500"
+                  }`}
+                >
+                  <Icon name={stat.iconKey as IconName} className="w-10 h-10" />
+                </div>
                 <div
                   className={`font-display text-4xl md:text-5xl font-bold mb-2 ${
                     i % 2 === 0 ? "text-forest-600" : "text-ocean-600"

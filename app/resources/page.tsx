@@ -4,6 +4,7 @@ import Link from "next/link";
 import { articles, downloadResources } from "@/data/mockData";
 import SectionHeader from "@/components/SectionHeader";
 import ArticleCard from "@/components/ArticleCard";
+import Icon, { type IconName } from "@/components/Icon";
 
 export const metadata: Metadata = {
   title: "資源中心",
@@ -23,6 +24,7 @@ export default function ResourcesPage() {
             src="https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=1400&q=80"
             alt="Resources"
             fill
+            sizes="100vw"
             className="object-cover opacity-10"
           />
         </div>
@@ -83,7 +85,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Downloads */}
+      {/* Downloads — Fix emoji with SVG icons */}
       <section className="py-20 bg-forest-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
@@ -98,7 +100,9 @@ export default function ResourcesPage() {
                 key={res.id}
                 className="card p-6 flex items-start gap-5"
               >
-                <div className="text-4xl flex-shrink-0">{res.icon}</div>
+                <div className="w-12 h-12 rounded-xl bg-forest-100 text-forest-600 flex items-center justify-center flex-shrink-0">
+                  <Icon name={res.iconKey as IconName} className="w-6 h-6" />
+                </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-display text-base font-semibold text-gray-900 mb-0.5">
                     {res.title}
@@ -118,7 +122,8 @@ export default function ResourcesPage() {
                     ))}
                   </div>
                   <button className="text-xs text-forest-600 font-semibold hover:text-forest-700 flex items-center gap-1.5 transition-colors">
-                    ↓ 免費下載
+                    <Icon name="download" className="w-3.5 h-3.5" />
+                    免費下載
                   </button>
                 </div>
               </div>
@@ -127,7 +132,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Video Resources */}
+      {/* Video Resources — Fix #15 eye emoji with SVG */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
@@ -163,11 +168,12 @@ export default function ResourcesPage() {
                     src={video.thumb}
                     alt={video.title}
                     fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                      <span className="text-forest-600 text-xl ml-0.5">▶</span>
+                    <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform text-forest-600">
+                      <Icon name="play" className="w-5 h-5 ml-0.5" />
                     </div>
                   </div>
                   <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-0.5 rounded">
@@ -178,7 +184,10 @@ export default function ResourcesPage() {
                   <h3 className="font-body font-semibold text-sm text-gray-900 leading-snug mb-1">
                     {video.title}
                   </h3>
-                  <p className="text-xs text-gray-500">👁 {video.views} 次觀看</p>
+                  <p className="text-xs text-gray-500 flex items-center gap-1">
+                    <Icon name="eye" className="w-3.5 h-3.5" />
+                    {video.views} 次觀看
+                  </p>
                 </div>
               </div>
             ))}

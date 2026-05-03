@@ -1,10 +1,14 @@
 import Link from "next/link";
+import Icon from "@/components/Icon";
 
 export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-forest-50 to-ocean-50 px-4">
       <div className="text-center max-w-md">
-        <div className="text-8xl mb-6">🌊</div>
+        {/* SVG waves icon replaces 🌊 emoji */}
+        <div className="w-24 h-24 rounded-full bg-ocean-100 text-ocean-500 flex items-center justify-center mx-auto mb-6">
+          <Icon name="waves" className="w-12 h-12" />
+        </div>
         <h1 className="font-display text-6xl text-forest-700 mb-4">404</h1>
         <h2 className="font-display text-2xl text-gray-900 mb-4">
           找不到這個頁面

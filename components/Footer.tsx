@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig, navLinks, socialLinks } from "@/data/mockData";
+import Icon, { type IconName } from "@/components/Icon";
 
 export default function Footer() {
   return (
@@ -39,15 +40,17 @@ export default function Footer() {
             <p className="text-gray-400 text-sm leading-relaxed max-w-sm mb-6">
               {siteConfig.description}
             </p>
+
+            {/* Fix #12: unified SVG social icons */}
             <div className="flex items-center gap-3">
               {socialLinks.map((s) => (
                 <a
                   key={s.platform}
                   href={s.href}
                   aria-label={s.label}
-                  className="w-9 h-9 rounded-full bg-gray-800 hover:bg-forest-600 flex items-center justify-center text-xs font-semibold text-gray-400 hover:text-white transition-colors duration-200"
+                  className="w-9 h-9 rounded-full bg-gray-800 hover:bg-forest-600 flex items-center justify-center text-gray-400 hover:text-white transition-colors duration-200"
                 >
-                  {s.icon}
+                  <Icon name={s.iconKey as IconName} className="w-4 h-4" />
                 </a>
               ))}
             </div>
@@ -72,24 +75,27 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact — Fix #12: SVG icons instead of emoji */}
           <div>
             <h3 className="text-white font-body font-semibold text-sm mb-4 uppercase tracking-widest">
               聯絡資訊
             </h3>
             <ul className="space-y-3 text-sm text-gray-400">
               <li className="flex items-start gap-2">
-                <span className="mt-0.5">✉️</span>
-                <a href={`mailto:${siteConfig.email}`} className="hover:text-forest-400 transition-colors">
+                <Icon name="mail" className="w-4 h-4 mt-0.5 flex-shrink-0 text-forest-400" />
+                <a
+                  href={`mailto:${siteConfig.email}`}
+                  className="hover:text-forest-400 transition-colors"
+                >
                   {siteConfig.email}
                 </a>
               </li>
               <li className="flex items-start gap-2">
-                <span className="mt-0.5">🌍</span>
+                <Icon name="globe" className="w-4 h-4 mt-0.5 flex-shrink-0 text-forest-400" />
                 <span>全球 {siteConfig.countries} 個國家服務</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="mt-0.5">📅</span>
+                <Icon name="calendar" className="w-4 h-4 mt-0.5 flex-shrink-0 text-forest-400" />
                 <span>成立於 {siteConfig.founded} 年</span>
               </li>
             </ul>
