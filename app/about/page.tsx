@@ -55,12 +55,12 @@ export default function AboutPage() {
               />
               <div className="space-y-4 mt-6 text-gray-600 leading-relaxed">
                 <p>
-                  2018 年，創辦人林雅婷帶著女兒在台灣淡水海灘撿垃圾時，遇見了來自日本的田中誠一一家。
-                  兩個家庭共同清理了超過 40 公斤的海洋廢棄物（Marine Debris），
+                  2018年，創辦人林雅婷帶著女兒在台灣淡水海灘撿垃圾時，遇見了來自日本的田中誠一一家。
+                  兩個家庭共同清理了超過40公斤的海洋廢棄物（Marine Debris），
                   這次相遇讓她們意識到：親子共同的環保行動，擁有改變世界的力量。
                 </p>
                 <p>
-                  這個小小的起點，成為 I.P.E.I.（International Parent-child Eco Initiative）
+                  這個小小的起點，成為I.P.E.I.（International Parent-child Eco Initiative）
                   的誕生故事。七年後，我們已連結了全球 {siteConfig.countries} 個國家、
                   超過 {siteConfig.volunteers.toLocaleString()} 個家庭志工，
                   共同舉辦逾 {siteConfig.events} 場環保行動。
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 zh: "願景",
                 color: "ocean",
                 content:
-                  "我們期許在 2030 年前，將親子環保（Family Eco-Action）理念融入全球 100 個國家的家庭文化，讓「守護地球」成為跨代際的共同語言。",
+                  "我們期許在 2030 年前，將親子環保（Family Eco-Action）理念融入全球100個國家的家庭文化，讓「守護地球」成為跨代際的共同語言。",
               },
               {
                 iconKey: "diamond" as IconName,
@@ -199,7 +199,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             label="核心團隊"
-            title="推動 I.P.E.I. 的人們"
+            title="推動I.P.E.I. 的人們"
             description="來自不同國家與背景的專業夥伴，以共同的環保熱忱凝聚在一起。"
             className="mb-12"
           />
@@ -240,7 +240,7 @@ export default function AboutPage() {
             植根亞洲，放眼全球
           </h2>
           <p className="text-white/70 text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
-            I.P.E.I. 以亞太地區為核心出發，與聯合國永續發展目標（UN SDGs）
+            I.P.E.I.以亞太地區為核心出發，與聯合國永續發展目標（UN SDGs）
             緊密連結，特別聚焦於目標 14（海洋生態，Life Below Water）
             與目標 4（優質教育，Quality Education）。
           </p>

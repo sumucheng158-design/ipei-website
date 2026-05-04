@@ -116,7 +116,7 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <Link href="#" className="hover:text-gray-400 transition-colors">隱私政策</Link>
             <Link href="#" className="hover:text-gray-400 transition-colors">服務條款</Link>
-            <Link href="#" className="hover:text-gray-400 transition-colors">Cookie 設定</Link>
+            <Link href="#" className="hover:text-gray-400 transition-colors">Cookie設定</Link>
           </div>
         </div>
       </div>

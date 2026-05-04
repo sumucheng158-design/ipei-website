@@ -31,7 +31,7 @@ const dmMono = DM_Mono({
 /* ── Site-wide metadata ── */
 export const metadata: Metadata = {
   title: {
-    default: "I.P.E.I. 國際親子生態倡議組織",
+    default: "I.P.E.I.國際親子生態倡議組織",
     template: "%s | I.P.E.I.",
   },
   description:
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "I.P.E.I. 國際親子生態倡議組織",
+    title: "I.P.E.I.國際親子生態倡議組織",
     description: "攜手孩子，守護地球 · Together for a Greener Tomorrow",
     images: ["/og-image.png"],
   },

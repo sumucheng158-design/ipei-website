@@ -4,7 +4,7 @@ export const siteConfig = {
   chineseName: "國際親子生態倡議組織",
   tagline: "攜手孩子，守護地球 · Together for a Greener Tomorrow",
   description:
-    "I.P.E.I. 是一個致力於透過親子共同參與，推動全球環境保護與永續發展的國際非政府組織。",
+    "I.P.E.I.是一個致力於透過親子共同參與，推動全球環境保護與永續發展的國際非政府組織。",
   email: "hello@ipei.org",
   founded: "2018",
   countries: 24,
@@ -24,7 +24,7 @@ export const stats = [
   { value: "24", label: "合作國家（Countries）", iconKey: "globe" },
   { value: "12,000+", label: "志工夥伴（Volunteers）", iconKey: "handshake" },
   { value: "380+", label: "舉辦活動（Events）", iconKey: "calendar" },
-  { value: "58 噸", label: "清除垃圾（Waste Removed）", iconKey: "recycle" },
+  { value: "58噸", label: "清除垃圾（Waste Removed）", iconKey: "recycle" },
 ];
 
 export const programs = [
@@ -82,7 +82,7 @@ export const programs = [
 export const upcomingEvents = [
   {
     id: 1,
-    title: "2026 夏季國際親子淨灘日",
+    title: "2026夏季國際親子淨灘日",
     subtitle: "International Family Beach Cleanup Day",
     date: "2026-08-15",
     location: "台灣・新北市淡水海灘",
@@ -126,7 +126,7 @@ export const articles = [
     id: 1,
     title: "如何帶孩子參與第一次淨灘（Beach Cleanup）活動",
     category: "親子教育",
-    readTime: "5 分鐘",
+    readTime: "5分鐘",
     date: "2026-04-15",
     excerpt:
       "淨灘不只是撿垃圾，更是一堂親子共學的生態課。本文提供完整準備指南，讓第一次參與的家庭也能輕鬆上手。",
@@ -146,7 +146,7 @@ export const articles = [
   },
   {
     id: 3,
-    title: "10 個讓孩子愛上環保的日常習慣",
+    title: "10個讓孩子愛上環保的日常習慣",
     category: "永續生活",
     readTime: "6 分鐘",
     date: "2026-03-10",
@@ -157,7 +157,7 @@ export const articles = [
   },
   {
     id: 4,
-    title: "I.P.E.I. 2025 年度影響力報告",
+    title: "I.P.E.I. 2025年度影響力報告",
     category: "組織報告",
     readTime: "12 分鐘",
     date: "2026-02-01",

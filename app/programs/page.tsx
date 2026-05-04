@@ -9,7 +9,7 @@ import Icon from "@/components/Icon";
 export const metadata: Metadata = {
   title: "活動項目",
   description:
-    "I.P.E.I. 的核心行動計畫：親子淨灘、生態教育、國際合作與永續生活，共同守護地球生態。",
+    "I.P.E.I.的核心行動計畫：親子淨灘、生態教育、國際合作與永續生活，共同守護地球生態。",
 };
 
 /* Country flags are legitimate semantic use of flag emoji — kept as-is.
@@ -49,7 +49,7 @@ const globalPrograms = [
     flag: "🇦🇺",
     country: "澳洲",
     name: "大堡礁教育行動",
-    desc: "大堡礁海洋教育課程，觸及 5,000+ 名學生",
+    desc: "大堡礁海洋教育課程，觸及5,000+名學生",
   },
 ];
 
@@ -75,7 +75,7 @@ export default function ProgramsPage() {
             <span className="text-ocean-300">Our Programs</span>
           </h1>
           <p className="text-white/70 text-lg max-w-2xl leading-relaxed">
-            從海灘到課堂，從在地到全球，I.P.E.I. 透過四大核心計畫推動環境保護（Environmental
+            從海灘到課堂，從在地到全球，I.P.E.I.透過四大核心計畫推動環境保護（Environmental
             Protection）與親子教育，讓每個家庭都能成為地球的守護者。
           </p>
         </div>
@@ -129,7 +129,7 @@ export default function ProgramsPage() {
               />
               <div className="mt-6 space-y-3">
                 {[
-                  "全球 24 個據點同步進行",
+                  "全球24個據點同步進行",
                   "提供完整安全裝備與指引",
                   "活動後數據回報與公開",
                   "親子友善設計，3 歲以上均可參加",
@@ -162,7 +162,7 @@ export default function ProgramsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             label="全球部署"
-            title="世界各地的 I.P.E.I. 行動"
+            title="世界各地的I.P.E.I.行動"
             description="我們的計畫遍及亞洲、大洋洲與美洲，每個在地計畫都融合當地文化與環境特色。"
             className="mb-12"
           />
@@ -198,7 +198,7 @@ export default function ProgramsPage() {
             想在你的城市發起行動？
           </h2>
           <p className="text-white/70 mb-8 text-lg">
-            I.P.E.I. 提供完整的活動支援資源，協助在地家庭成立分支據點，
+            I.P.E.I.提供完整的活動支援資源，協助在地家庭成立分支據點，
             將親子環保（Family Eco-Action）帶入你的社區。
           </p>
           <Link

@@ -9,7 +9,7 @@ import Icon, { type IconName } from "@/components/Icon";
 export const metadata: Metadata = {
   title: "資源中心",
   description:
-    "I.P.E.I. 資源中心 — 環境教育文章、親子教學內容、可下載教材，支援你的環保行動。",
+    "I.P.E.I.資源中心 — 環境教育文章、親子教學內容、可下載教材，支援你的環保行動。",
 };
 
 const categories = ["全部", "親子教育", "環境科學", "永續生活", "組織報告"];

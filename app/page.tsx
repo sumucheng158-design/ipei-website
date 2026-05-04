@@ -70,7 +70,7 @@ export default function HomePage() {
             </p>
 
             <p className="text-white/60 text-base md:text-lg leading-relaxed max-w-xl mb-10 animate-fade-up animate-delay-300">
-              I.P.E.I. 是一個透過親子共同行動推動全球環境保護的國際倡議組織。
+              I.P.E.I.是一個透過親子共同行動推動全球環境保護的國際倡議組織。
               從淨灘（Beach Cleanup）到環境教育（Environmental Education），
               我們相信改變從家庭開始。
             </p>

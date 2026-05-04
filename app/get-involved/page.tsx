@@ -13,7 +13,7 @@ const volunteerRoles = [
     iconKey: "beach" as IconName,
     title: "淨灘志工",
     subtitle: "Beach Cleanup Volunteer",
-    commitment: "每月 1 次",
+    commitment: "每月1次",
     desc: "帶領親子家庭進行淨灘活動，負責現場引導、數據記錄與垃圾分類教學。",
   },
   {
@@ -34,7 +34,7 @@ const volunteerRoles = [
     iconKey: "network" as IconName,
     title: "線上社群志工",
     subtitle: "Online Community Volunteer",
-    commitment: "每週 2-3 小時",
+    commitment: "每週2-3小時",
     desc: "協助管理社群媒體內容、翻譯資源教材、回覆社群問題，遠端即可進行。",
   },
   {
@@ -42,7 +42,7 @@ const volunteerRoles = [
     title: "企業聯繫志工",
     subtitle: "Corporate Liaison",
     commitment: "視需求而定",
-    desc: "協助聯繫在地企業、學校與社區組織，拓展 I.P.E.I. 的合作網絡。",
+    desc: "協助聯繫在地企業、學校與社區組織，拓展I.P.E.I.的合作網絡。",
   },
   {
     iconKey: "laptop" as IconName,
