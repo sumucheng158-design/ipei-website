@@ -4,6 +4,7 @@ import Link from "next/link";
 import { programs } from "@/data/mockData";
 import SectionHeader from "@/components/SectionHeader";
 import ProgramCard from "@/components/ProgramCard";
+import Icon from "@/components/Icon";
 
 export const metadata: Metadata = {
   title: "活動項目",
@@ -11,34 +12,42 @@ export const metadata: Metadata = {
     "I.P.E.I. 的核心行動計畫：親子淨灘、生態教育、國際合作與永續生活，共同守護地球生態。",
 };
 
+/* Country flags are legitimate semantic use of flag emoji — kept as-is.
+   All other decorative emoji replaced with SVG icons. */
 const globalPrograms = [
   {
-    country: "🇹🇼 台灣",
+    flag: "🇹🇼",
+    country: "台灣",
     name: "海岸守護計畫",
     desc: "每月第三個週末定期淨灘，已清除逾 8 噸廢棄物",
   },
   {
-    country: "🇯🇵 日本",
+    flag: "🇯🇵",
+    country: "日本",
     name: "里海親子教室",
     desc: "結合傳統漁業文化的生態教育課程",
   },
   {
-    country: "🇸🇬 新加坡",
+    flag: "🇸🇬",
+    country: "新加坡",
     name: "城市綠生活",
     desc: "都市家庭零廢棄挑戰，參與家庭超過 1,200 戶",
   },
   {
-    country: "🇰🇷 韓國",
+    flag: "🇰🇷",
+    country: "韓國",
     name: "濟州島生態守護",
     desc: "UNESCO 生物圈保護區親子志工計畫",
   },
   {
-    country: "🇲🇽 墨西哥",
+    flag: "🇲🇽",
+    country: "墨西哥",
     name: "加勒比海珊瑚守護",
     desc: "與在地漁民家庭合作的珊瑚礁監測計畫",
   },
   {
-    country: "🇦🇺 澳洲",
+    flag: "🇦🇺",
+    country: "澳洲",
     name: "大堡礁教育行動",
     desc: "大堡礁海洋教育課程，觸及 5,000+ 名學生",
   },
@@ -54,6 +63,7 @@ export default function ProgramsPage() {
             src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1400&q=80"
             alt="Programs"
             fill
+            sizes="100vw"
             className="object-cover opacity-15"
           />
         </div>
@@ -65,8 +75,8 @@ export default function ProgramsPage() {
             <span className="text-ocean-300">Our Programs</span>
           </h1>
           <p className="text-white/70 text-lg max-w-2xl leading-relaxed">
-            從海灘到課堂，從在地到全球，I.P.E.I. 透過四大核心計畫推動環境保護（Environmental Protection）
-            與親子教育，讓每個家庭都能成為地球的守護者。
+            從海灘到課堂，從在地到全球，I.P.E.I. 透過四大核心計畫推動環境保護（Environmental
+            Protection）與親子教育，讓每個家庭都能成為地球的守護者。
           </p>
         </div>
         <div className="absolute bottom-0 left-0 right-0">
@@ -106,6 +116,7 @@ export default function ProgramsPage() {
                 src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=700&q=80"
                 alt="Beach Cleanup"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
               />
             </div>
@@ -125,8 +136,9 @@ export default function ProgramsPage() {
                   "與在地社群深度合作",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-ocean-100 flex items-center justify-center text-ocean-600 text-xs flex-shrink-0">
-                      ✓
+                    {/* SVG check replaces "✓" text */}
+                    <div className="w-5 h-5 rounded-full bg-ocean-100 text-ocean-600 flex items-center justify-center flex-shrink-0">
+                      <Icon name="check" className="w-3 h-3" />
                     </div>
                     <span className="text-gray-700 text-sm">{item}</span>
                   </div>
@@ -160,8 +172,15 @@ export default function ProgramsPage() {
                 key={prog.country}
                 className="card p-6 hover:border-ocean-200"
               >
-                <div className="text-2xl mb-3">{prog.country.split(" ")[0]}</div>
-                <div className="text-xs text-gray-500 mb-1">{prog.country.split(" ").slice(1).join(" ")}</div>
+                {/* Country flags in location context are semantic — kept */}
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-2xl" role="img" aria-label={prog.country}>
+                    {prog.flag}
+                  </span>
+                  <span className="text-xs font-mono text-gray-500 uppercase tracking-widest">
+                    {prog.country}
+                  </span>
+                </div>
                 <h3 className="font-display text-lg font-semibold text-gray-900 mb-2">
                   {prog.name}
                 </h3>
@@ -182,7 +201,10 @@ export default function ProgramsPage() {
             I.P.E.I. 提供完整的活動支援資源，協助在地家庭成立分支據點，
             將親子環保（Family Eco-Action）帶入你的社區。
           </p>
-          <Link href="/get-involved" className="bg-white text-forest-700 hover:bg-forest-50 font-semibold px-8 py-4 rounded-full transition-all duration-200 hover:shadow-lg">
+          <Link
+            href="/get-involved"
+            className="bg-white text-forest-700 hover:bg-forest-50 font-semibold px-8 py-4 rounded-full transition-all duration-200 hover:shadow-lg"
+          >
             申請成立在地據點
           </Link>
         </div>
